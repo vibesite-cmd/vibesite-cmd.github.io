@@ -90,6 +90,20 @@
       ],
       "date": "2026-06-26",
       "url": "projects/vibe-core/"
+    },
+    {
+      "id": "vibe-tool",
+      "title": "Vibe Tool \u2014 Project Generator",
+      "author": "vibesite",
+      "description": "A meta-tool that generates ready-to-upload vibe-coded static project templates (with separate CSS/JS structure).",
+      "tags": [
+        "tool",
+        "generator",
+        "boilerplate",
+        "meta"
+      ],
+      "date": "2026-06-26",
+      "url": "projects/vibe-tool/"
     }
   ]
 }

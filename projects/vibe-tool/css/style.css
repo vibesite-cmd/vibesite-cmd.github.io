@@ -1,0 +1,132 @@
+:root {
+  --bg-deep: #08050a;
+  --bone: #e8dcc8;
+  --ash: #8a7d6f;
+  --crimson: #dc2626;
+  --amber: #fbbf24;
+  --emerald: #10b981;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  background: var(--bg-deep);
+  color: var(--bone);
+  font-family: 'Cormorant Garamond', serif;
+  line-height: 1.6;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 42px;
+  font-weight: 300;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: var(--ash);
+  font-size: 15px;
+  margin-bottom: 32px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ash);
+  margin-bottom: 6px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px 12px;
+  background: #111;
+  border: 1px solid rgba(232,220,200,0.15);
+  color: var(--bone);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  border-radius: 3px;
+}
+
+textarea {
+  height: 80px;
+  resize: vertical;
+}
+
+.checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.checkboxes label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+button {
+  background: var(--crimson);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+button.secondary {
+  background: transparent;
+  border: 1px solid var(--ash);
+  color: var(--bone);
+}
+
+#output {
+  background: #111;
+  border: 1px solid rgba(232,220,200,0.15);
+  padding: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  white-space: pre-wrap;
+  margin-top: 20px;
+  border-radius: 3px;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.back-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 100;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  opacity: 0.65;
+}
+
+.back-link a {
+  color: var(--bone);
+  text-decoration: none;
+  background: rgba(8,5,10,0.8);
+  padding: 4px 8px;
+  border: 1px solid rgba(232,220,200,0.2);
+}
+
+.back-link a:hover {
+  color: var(--crimson);
+  border-color: var(--crimson);
+}

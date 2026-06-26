@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vibe Tool — Project Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,700;1,400&family=JetBrains+Mono:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="back-link">
+    <a href="/">← back to vibesite</a>
+  </div>
+
+  <h1>Vibe Tool</h1>
+  <p class="subtitle">Generate a ready-to-upload vibe-coded static project template. Perfect for submissions.</p>
+
+  <form id="generator-form">
+    <div class="form-group">
+      <label>Project Title</label>
+      <input type="text" id="title" placeholder="My Vibe Creation" value="My First Vibe">
+    </div>
+    
+    <div class="form-group">
+      <label>Your Name / Handle</label>
+      <input type="text" id="author" placeholder="your-name" value="You">
+    </div>
+    
+    <div class="form-group">
+      <label>Short Description</label>
+      <textarea id="description">A beautiful static experience made with feeling.</textarea>
+    </div>
+    
+    <div class="form-group">
+      <label>Tags (comma separated)</label>
+      <input type="text" id="tags" value="vibe, static, tool" placeholder="game, art, tool">
+    </div>
+
+    <div class="form-group">
+      <label>Options</label>
+      <div class="checkboxes">
+        <label><input type="checkbox" id="has-canvas" checked> Include canvas demo</label>
+        <label><input type="checkbox" id="separate-files" checked> Generate separate css/ + js/ files</label>
+        <label><input type="checkbox" id="include-three"> Include Three.js starter</label>
+        <label><input type="checkbox" id="dark-vibe" checked> Use dark vibe theme</label>
+      </div>
+    </div>
+
+    <button type="button" id="generate-btn">Generate Template</button>
+    <button type="button" id="copy-btn" class="secondary">Copy All Code</button>
+    <button type="button" id="download-btn" class="secondary">Download as .html</button>
+  </form>
+
+  <div id="output"></div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
