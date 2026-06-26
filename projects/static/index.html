@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>STATIC</title>
+<style>
+body { margin:0; background:#08050a; overflow:hidden; }
+canvas { display:block; }
+.controls { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); color:#8a7d6f; font-family:monospace; font-size:12px; opacity:0.6; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="controls">Click to retune • Mouse moves the signal</div>
+<script>
+const c = document.getElementById('c');
+const ctx = c.getContext('2d', { alpha: false });
+let w, h, t = 0, freq = 0.8, amp = 1.2;
+function resize() { w = c.width = window.innerWidth; h = c.height = window.innerHeight; }
+window.addEventListener('resize', resize); resize();
+window.addEventListener('mousemove', e => { freq = 0.3 + (e.clientX / w) * 2.4; amp = 0.6 + (e.clientY / h) * 2.2; });
+window.addEventListener('click', () => { freq = 0.5 + Math.random()*2.8; amp = 0.8 + Math.random()*2.5; });
+
+function loop() {
+  t += 0.016;
+  const img = ctx.createImageData(w, h);
+  for (let y=0; y<h; y++) {
+    for (let x=0; x<w; x++) {
+      const i = (y*w + x)*4;
+      const n = Math.sin(x*freq*0.03 + t*4) * Math.sin(y*0.019 + t*1.7) * amp;
+      const v = 20 + (n * 70) + (Math.random()-0.5)*35;
+      img.data[i] = v; img.data[i+1] = v*0.7; img.data[i+2] = v*0.4; img.data[i+3] = 255;
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+  requestAnimationFrame(loop);
+}
+loop();
+</script>
+</body>
+</html>

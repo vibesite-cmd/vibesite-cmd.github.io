@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Night Bloom</title>
+<style>
+body { margin:0; background:#08050a; color:#e8dcc8; font-family: 'Cormorant Garamond', serif; overflow:hidden; }
+canvas { display:block; }
+.instructions { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); font-size:13px; opacity:0.6; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="instructions">Move mouse slowly • Click to seed new blooms</div>
+<script>
+const c = document.getElementById('c');
+const ctx = c.getContext('2d');
+let w, h;
+function resize() { w = c.width = window.innerWidth; h = c.height = window.innerHeight; }
+window.addEventListener('resize', resize); resize();
+
+let blooms = [];
+
+class Bloom {
+  constructor(x, y) {
+    this.x = x; this.y = y;
+    this.petals = 5 + Math.floor(Math.random()*4);
+    this.size = 8 + Math.random()*18;
+    this.hue = 320 + Math.random()*40;
+    this.age = 0;
+    this.life = 180 + Math.random()*120;
+    this.angle = Math.random() * Math.PI * 2;
+  }
+  update(mx, my) {
+    const dx = this.x - mx;
+    const dy = this.y - my;
+    const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+    const force = Math.min(1.2 / dist, 0.8);
+    this.x += (dx / dist) * force * -0.6;
+    this.y += (dy / dist) * force * -0.6;
+    this.age++;
+    if (this.age > this.life) this.age = this.life;
+  }
+  draw() {
+    const t = this.age / this.life;
+    const s = this.size * (1 - t*0.3);
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle);
+    for (let i=0; i<this.petals; i++) {
+      const a = (i / this.petals) * Math.PI * 2;
+      const px = Math.cos(a) * s * 0.6;
+      const py = Math.sin(a) * s * 0.6;
+      ctx.fillStyle = `hsla(${this.hue}, 70%, 75%, ${0.7 - t*0.5})`;
+      ctx.beginPath();
+      ctx.ellipse(px, py, s*0.35, s*0.7, a, 0, Math.PI*2);
+      ctx.fill();
+    }
+    ctx.fillStyle = `hsla(${this.hue-20}, 80%, 85%, ${0.9 - t*0.6})`;
+    ctx.beginPath();
+    ctx.arc(0,0, s*0.18, 0, Math.PI*2);
+    ctx.fill();
+    ctx.restore();
+  }
+}
+
+let mx = w/2, my = h/2;
+window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+window.addEventListener('click', e => {
+  for (let i=0; i<3; i++) blooms.push(new Bloom(e.clientX + (Math.random()-0.5)*80, e.clientY + (Math.random()-0.5)*80));
+});
+
+function loop() {
+  ctx.fillStyle = 'rgba(8,5,10,0.35)';
+  ctx.fillRect(0,0,w,h);
+  blooms.forEach((b,i) => {
+    b.update(mx, my);
+    b.draw();
+    if (b.age >= b.life) blooms.splice(i,1);
+  });
+  if (Math.random() < 0.03 && blooms.length < 28) {
+    blooms.push(new Bloom(Math.random()*w, Math.random()*h));
+  }
+  requestAnimationFrame(loop);
+}
+loop();
+setTimeout(() => {
+  for (let i=0; i<12; i++) blooms.push(new Bloom(w/2 + (Math.random()-0.5)*300, h/2 + (Math.random()-0.5)*200));
+}, 400);
+</script>
+</body>
+</html>

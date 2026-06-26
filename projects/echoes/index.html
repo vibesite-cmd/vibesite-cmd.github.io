@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Echoes</title>
+<style>
+body { background:#08050a; color:#e8dcc8; font-family: 'Cormorant Garamond', serif; padding:40px; max-width:720px; margin:auto; line-height:1.7; }
+h1 { font-size:42px; font-weight:300; margin-bottom:10px; }
+.choices { margin-top:30px; }
+button { background:none; border:1px solid #8a7d6f; color:#e8dcc8; padding:10px 18px; margin:6px 0; cursor:pointer; font:inherit; display:block; width:100%; text-align:left; }
+button:hover { border-color:#dc2626; color:#dc2626; }
+#story { font-size:19px; margin:30px 0; }
+</style>
+</head>
+<body>
+<h1>Echoes</h1>
+<div id="story">You stand at the edge of a memory. The air smells of rain and old paper. Something important happened here.</div>
+<div class="choices" id="choices"></div>
+<script>
+let state = 'start';
+const storyEl = document.getElementById('story');
+const choicesEl = document.getElementById('choices');
+
+function render() {
+  choicesEl.innerHTML = '';
+  if (state === 'start') {
+    storyEl.textContent = 'You stand at the edge of a memory. The air smells of rain and old paper. Something important happened here.';
+    addChoice('Step forward into the rain', () => { state='rain'; render(); });
+    addChoice('Listen for voices', () => { state='voices'; render(); });
+  } else if (state === 'rain') {
+    storyEl.textContent = 'The rain is warm. It tastes like the day you left. Footsteps appear behind you that are not yours.';
+    addChoice('Turn around', () => { state='turn'; render(); });
+    addChoice('Keep walking', () => { state='end'; render(); });
+  } else if (state === 'voices') {
+    storyEl.textContent = 'Whispers from the walls. One of them knows your name. The others are lying.';
+    addChoice('Answer the voice that sounds like home', () => { state='home'; render(); });
+    addChoice('Ignore all of them', () => { state='end'; render(); });
+  } else if (state === 'turn') {
+    storyEl.textContent = 'No one is there. Only the echo of your own footsteps returning.';
+    addChoice('Accept the echo', () => { state='end'; render(); });
+  } else if (state === 'home') {
+    storyEl.textContent = 'The voice was yours. It was always you. The memory closes gently.';
+    addChoice('Return to the beginning', () => { state='start'; render(); });
+  } else if (state === 'end') {
+    storyEl.textContent = 'Some echoes are not meant to be followed. You carry the weight of what you almost remembered.';
+    addChoice('Return to the beginning', () => { state='start'; render(); });
+  }
+}
+function addChoice(text, fn) {
+  const b = document.createElement('button');
+  b.textContent = text;
+  b.onclick = fn;
+  choicesEl.appendChild(b);
+}
+render();
+</script>
+</body>
+</html>
