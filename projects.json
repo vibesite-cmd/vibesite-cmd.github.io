@@ -76,6 +76,20 @@
       ],
       "date": "2026-06-26",
       "url": "projects/vibe-lure/"
+    },
+    {
+      "id": "vibe-core",
+      "title": "Vibe Core",
+      "author": "vibesite",
+      "description": "A 3D atmospheric orb with orbiting particles and dynamic lighting. Drag to rotate, scroll to zoom. Pure Three.js vibe.",
+      "tags": [
+        "threejs",
+        "3d",
+        "generative",
+        "webgl"
+      ],
+      "date": "2026-06-26",
+      "url": "projects/vibe-core/"
     }
   ]
 }
