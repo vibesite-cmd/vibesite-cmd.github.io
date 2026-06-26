@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,700;1,400&family=JetBrains+Mono:wght@300;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
   <style>
     :root {
       --bg-deep: #08050a;
@@ -122,37 +123,68 @@
 
   <div class="section" id="submit">
     <h2>Submit a Project</h2>
-    <div class="submit">
-      <p style="margin-bottom:20px;color:#c7b9a3">Two ways to add your creation to the archive. Both are welcome.</p>
-      
-      <div class="steps">
-        <div class="step">
-          <h4>1. GitHub Pull Request (best)</h4>
-          <ol>
-            <li>Fork the <a href="https://github.com/vibesite-cmd/vibesite-cmd.github.io" target="_blank" style="color:var(--crimson)">vibesite repository</a></li>
-            <li>Create folder <code>/projects/your-project-slug/</code></li>
-            <li>Add your self-contained <code>index.html</code> + assets</li>
-            <li>Add your project to <code>projects.json</code></li>
-            <li>Open a Pull Request with a short description</li>
-          </ol>
-          <div class="screenshot-placeholder">Screenshot of forking the repo would go here</div>
-        </div>
-        
-        <div class="step">
-          <h4>2. Simple web upload</h4>
-          <ol>
-            <li>Go to the repo on GitHub</li>
-            <li>Click <strong>Add file → Upload files</strong></li>
-            <li>Upload your project folder into <code>/projects/</code></li>
-            <li>Describe what it is and why it has the right vibe</li>
-            <li>Open a Pull Request or Issue</li>
-          </ol>
-          <div class="screenshot-placeholder">Screenshot of the GitHub upload button would go here</div>
+    <div class="submit" style="max-width: 700px; margin: 0 auto;">
+      <p style="margin-bottom: 16px; color: #c7b9a3; text-align: center;">
+        Drag &amp; drop your project here (as a .zip). We'll help you submit it safely through GitHub.
+      </p>
+
+      <!-- Drag and Drop Zone -->
+      <div id="drop-zone" style="
+        border: 3px dashed rgba(232,220,200,0.25);
+        border-radius: 8px;
+        padding: 60px 20px;
+        text-align: center;
+        background: rgba(0,0,0,0.2);
+        margin: 20px 0;
+        cursor: pointer;
+        transition: all 0.2s;
+      ">
+        <div style="font-size: 48px; margin-bottom: 12px;">📁</div>
+        <div style="font-size: 18px; margin-bottom: 8px; color: var(--bone);">Drop your project .zip here</div>
+        <div style="font-size: 13px; color: var(--ash); opacity: 0.8;">
+          or click to choose file<br>
+          <span style="font-size: 11px;">(must contain an index.html)</span>
         </div>
       </div>
 
-      <div class="note">
-        Projects should be self-contained static experiences (one HTML file is ideal). We'll review and merge within a day or two. Keep the strange, the quiet, the beautiful.
+      <input type="file" id="file-input" accept=".zip" style="display: none;">
+
+      <!-- After drop: Preview & Actions -->
+      <div id="upload-preview" style="display: none; background: #0c080c; padding: 20px; border-radius: 4px; margin-top: 16px;">
+        <div style="margin-bottom: 12px;">
+          <strong style="color: var(--amber);">Project detected:</strong>
+          <span id="detected-name" style="font-family: JetBrains Mono, monospace;"></span>
+        </div>
+
+        <div style="margin-bottom: 12px;">
+          <label style="display: block; font-size: 12px; color: var(--ash); margin-bottom: 4px;">Suggested slug (folder name):</label>
+          <input id="slug-input" type="text" style="width: 100%; padding: 8px; background: #111; border: 1px solid #333; color: var(--bone); font-family: JetBrains Mono, monospace;">
+        </div>
+
+        <div id="file-list" style="font-family: JetBrains Mono, monospace; font-size: 12px; background: #08050a; padding: 10px; border-radius: 3px; max-height: 120px; overflow: auto; margin-bottom: 16px;"></div>
+
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <button id="open-github-upload" class="btn" style="flex: 1; background: var(--crimson); border-color: var(--crimson); color: white;">
+            Open GitHub Upload Page
+          </button>
+          <button id="copy-instructions" class="btn" style="flex: 1;">
+            Copy Instructions
+          </button>
+        </div>
+
+        <div id="json-hint" style="margin-top: 16px; font-size: 12px; color: var(--ash);">
+          After uploading on GitHub, also add this entry to <code>projects.json</code> (we'll review):
+          <pre id="json-snippet" style="background:#08050a; padding:8px; margin-top:6px; white-space: pre-wrap; font-size:11px; border:1px solid #222;"></pre>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top: 20px;">
+        <strong>Safe &amp; simple:</strong> Your files never leave your browser until you decide to upload them directly on GitHub's own secure page. 
+        We only help you prepare the right structure. No tokens or direct writes from this site.
+      </div>
+
+      <div style="margin-top: 24px; font-size: 12px; color: var(--ash); opacity: 0.7;">
+        Prefer the classic way? <a href="https://github.com/vibesite-cmd/vibesite-cmd.github.io" target="_blank" style="color: var(--crimson);">Go straight to the repo</a> and use "Add file → Upload files".
       </div>
     </div>
   </div>
@@ -199,6 +231,169 @@
       });
     }
     loadGallery();
+
+    // ========== DRAG & DROP SUBMISSION (client-side only, safe) ==========
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const preview = document.getElementById('upload-preview');
+    const detectedName = document.getElementById('detected-name');
+    const slugInput = document.getElementById('slug-input');
+    const fileListEl = document.getElementById('file-list');
+    const openBtn = document.getElementById('open-github-upload');
+    const copyBtn = document.getElementById('copy-instructions');
+    const jsonSnippet = document.getElementById('json-snippet');
+
+    let droppedFiles = [];
+
+    function showPreview(name, files) {
+      droppedFiles = files;
+      detectedName.textContent = name;
+      slugInput.value = sanitizeSlug(name);
+
+      fileListEl.innerHTML = files.map(f => `• ${f.name} (${(f.size/1024).toFixed(1)} KB)`).join('<br>');
+
+      // Generate projects.json snippet
+      const slug = slugInput.value;
+      const snippet = `{
+  "id": "${slug}",
+  "title": "${name.replace(/"/g, '\\"')}",
+  "author": "your-name",
+  "description": "A cool vibe-coded thing...",
+  "tags": ["game", "interactive"],
+  "date": "${new Date().toISOString().slice(0,10)}",
+  "url": "projects/${slug}/"
+}`;
+      jsonSnippet.textContent = snippet;
+
+      preview.style.display = 'block';
+    }
+
+    function sanitizeSlug(name) {
+      return name.toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '')
+        .slice(0, 40) || 'new-project';
+    }
+
+    // Drag & drop handlers
+    dropZone.addEventListener('dragover', e => {
+      e.preventDefault();
+      dropZone.style.borderColor = 'var(--crimson)';
+      dropZone.style.background = 'rgba(220,38,38,0.08)';
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.style.borderColor = 'rgba(232,220,200,0.25)';
+      dropZone.style.background = 'rgba(0,0,0,0.2)';
+    });
+
+    dropZone.addEventListener('drop', async e => {
+      e.preventDefault();
+      dropZone.style.borderColor = 'rgba(232,220,200,0.25)';
+      dropZone.style.background = 'rgba(0,0,0,0.2)';
+
+      const items = e.dataTransfer.items;
+      if (items && items.length > 0 && items[0].webkitGetAsEntry) {
+        // Try to handle folder (modern Chrome)
+        const entry = items[0].webkitGetAsEntry();
+        if (entry && entry.isDirectory) {
+          alert("Folder drop detected. For best results with nested projects, please zip the folder first and drop the .zip.");
+          return;
+        }
+      }
+
+      const files = Array.from(e.dataTransfer.files);
+      await handleFiles(files);
+    });
+
+    dropZone.addEventListener('click', () => fileInput.click());
+
+    fileInput.addEventListener('change', async () => {
+      const files = Array.from(fileInput.files);
+      await handleFiles(files);
+    });
+
+    async function handleFiles(files) {
+      if (files.length === 0) return;
+
+      let projectName = files[0].name.replace(/\.(zip|html?)$/i, '');
+      let extractedFiles = [];
+
+      // If it's a zip, use JSZip
+      const zipFile = files.find(f => f.name.toLowerCase().endsWith('.zip'));
+      if (zipFile && window.JSZip) {
+        try {
+          const zip = await JSZip.loadAsync(zipFile);
+          const filePromises = [];
+          zip.forEach((relativePath, zipEntry) => {
+            if (!zipEntry.dir) {
+              filePromises.push(
+                zipEntry.async('uint8array').then(content => ({
+                  name: relativePath,
+                  size: content.length,
+                  content
+                }))
+              );
+            }
+          });
+          extractedFiles = await Promise.all(filePromises);
+
+          // Try to find a good project name from zip contents
+          const indexFile = extractedFiles.find(f => f.name.toLowerCase().endsWith('index.html'));
+          if (indexFile) {
+            projectName = zipFile.name.replace(/\.zip$/i, '');
+          }
+        } catch (err) {
+          alert("Could not read the zip file. Make sure it's a valid zip of your project.");
+          return;
+        }
+      } else {
+        // Treat as loose files
+        extractedFiles = files.map(f => ({
+          name: f.name,
+          size: f.size
+        }));
+      }
+
+      // Basic validation
+      const hasIndex = extractedFiles.some(f => 
+        f.name.toLowerCase().endsWith('index.html') || 
+        f.name.toLowerCase() === 'index.html'
+      );
+      if (!hasIndex) {
+        alert("Your project must contain an index.html file at the root (or inside the zip).");
+        return;
+      }
+
+      showPreview(projectName, extractedFiles);
+    }
+
+    // Buttons
+    openBtn.addEventListener('click', () => {
+      const slug = slugInput.value.trim() || 'new-project';
+      const url = `https://github.com/vibesite-cmd/vibesite-cmd.github.io/upload/main/projects/${slug}`;
+      window.open(url, '_blank');
+    });
+
+    copyBtn.addEventListener('click', () => {
+      const slug = slugInput.value.trim();
+      const text = `Project slug: projects/${slug}\n\n` +
+        `Add this to projects.json (after you upload the files):\n\n` +
+        jsonSnippet.textContent;
+
+      navigator.clipboard.writeText(text).then(() => {
+        const original = copyBtn.textContent;
+        copyBtn.textContent = 'Copied!';
+        setTimeout(() => copyBtn.textContent = original, 1800);
+      });
+    });
+
+    // Allow clicking the zone again to change files
+    dropZone.addEventListener('click', () => {
+      if (preview.style.display === 'block') {
+        preview.style.display = 'none';
+      }
+    });
   </script>
 </body>
 </html>
