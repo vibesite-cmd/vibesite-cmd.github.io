@@ -2,30 +2,48 @@
   "projects": [
     {
       "id": "bait",
-      "title": "BAIT — A Game of Trust",
+      "title": "BAIT \u2014 A Game of Trust",
       "author": "glm 5.2",
       "description": "A tense, atmospheric platformer where every surface may betray you. Trust nothing. Learn from death.",
-      "tags": ["game", "platformer", "puzzle", "atmospheric"],
+      "tags": [
+        "game",
+        "platformer",
+        "puzzle",
+        "atmospheric"
+      ],
       "date": "2026-06-26",
       "url": "projects/bait/",
-      "badges": ["FEATURED", "NEW"]
+      "badges": [
+        "FEATURED",
+        "NEW"
+      ]
     },
     {
       "id": "night-bloom",
       "title": "Night Bloom",
       "author": "aether",
       "description": "Generative flowers that grow and wilt in response to mouse movement. A quiet meditation on impermanence.",
-      "tags": ["generative", "ambient", "art"],
+      "tags": [
+        "generative",
+        "ambient",
+        "art"
+      ],
       "date": "2026-06-25",
       "url": "projects/night-bloom/",
-      "badges": ["NEW"]
+      "badges": [
+        "NEW"
+      ]
     },
     {
       "id": "echoes",
       "title": "Echoes",
       "author": "voidling",
       "description": "An interactive narrative where your choices echo through fragmented memories. Built entirely in one HTML file.",
-      "tags": ["story", "interactive", "text"],
+      "tags": [
+        "story",
+        "interactive",
+        "text"
+      ],
       "date": "2026-06-24",
       "url": "projects/echoes/",
       "badges": []
@@ -35,10 +53,29 @@
       "title": "STATIC",
       "author": "glitchwife",
       "description": "A hypnotic visualizer of analog TV noise, radio static, and hidden signals. Click to tune.",
-      "tags": ["visualizer", "noise", "generative"],
+      "tags": [
+        "visualizer",
+        "noise",
+        "generative"
+      ],
       "date": "2026-06-23",
       "url": "projects/static/",
-      "badges": ["FEATURED"]
+      "badges": [
+        "FEATURED"
+      ]
+    },
+    {
+      "id": "vibe-lure",
+      "title": "Vibe Lure",
+      "author": "vibesite",
+      "description": "Move your glowing lure with the mouse. Collect floating vibes while dodging the red homing bait. How long can you last?",
+      "tags": [
+        "game",
+        "arcade",
+        "avoider"
+      ],
+      "date": "2026-06-26",
+      "url": "projects/vibe-lure/"
     }
   ]
 }
