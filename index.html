@@ -1,141 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VibeSite • Coming Soon</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
-        
-        :root {
-            --bg: #0a0a0a;
-            --fg: #ededed;
-            --accent: #a5b4fc;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', system_ui, sans-serif;
-            background: var(--bg);
-            color: var(--fg);
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 620px;
-            padding: 2rem;
-            text-align: center;
-        }
-        
-        .logo {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 600;
-            letter-spacing: -3px;
-            margin-bottom: 1rem;
-        }
-        
-        .tagline {
-            font-size: 1.25rem;
-            color: #a1a1aa;
-            margin-bottom: 3rem;
-        }
-        
-        .content {
-            background: #111;
-            border-radius: 16px;
-            padding: 2.5rem;
-            border: 1px solid #222;
-        }
-        
-        h1 {
-            font-size: 2.25rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-        
-        p {
-            color: #a1a1aa;
-            margin-bottom: 2rem;
-        }
-        
-        .status {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #1f2937;
-            color: #86efac;
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-        
-        .dot {
-            width: 8px;
-            height: 8px;
-            background: #86efac;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-        
-        .links {
-            margin-top: 2.5rem;
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        .link {
-            color: var(--accent);
-            text-decoration: none;
-            font-size: 0.95rem;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-        }
-        
-        .link:hover {
-            background: #1f2937;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>vibesite • archive of vibe-coded creations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,700;1,400&family=JetBrains+Mono:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #08050a;
+      --bone: #e8dcc8;
+      --ash: #8a7d6f;
+      --crimson: #dc2626;
+      --amber: #fbbf24;
+      --emerald: #10b981;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      background: var(--bg-deep);
+      color: var(--bone);
+      font-family: 'Cormorant Garamond', serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    .header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(8,5,10,.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(232,220,200,.08);
+      padding: 14px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { font-family: 'JetBrains Mono', monospace; font-size: 15px; letter-spacing: 3px; color: var(--ash); }
+    .nav a { color: var(--bone); text-decoration: none; margin-left: 24px; font-size: 13px; opacity: .8; }
+    .nav a:hover { opacity: 1; color: var(--crimson); }
+    .hero {
+      text-align: center; padding: 100px 20px 80px; max-width: 720px; margin: 0 auto;
+    }
+    .hero h1 {
+      font-size: clamp(52px, 9vw, 92px); font-weight: 300; letter-spacing: -.02em;
+      background: linear-gradient(180deg, var(--bone) 30%, #9f8a78);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p { font-size: 19px; color: var(--ash); max-width: 480px; margin: 16px auto 40px; }
+    .btn {
+      display: inline-block; padding: 14px 32px; border: 1px solid var(--crimson);
+      color: var(--bone); text-decoration: none; font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; letter-spacing: .3em; text-transform: uppercase; transition: all .3s;
+    }
+    .btn:hover { background: var(--crimson); color: #fff; }
+    .section { max-width: 1080px; margin: 0 auto; padding: 0 20px 80px; }
+    h2 { font-size: 13px; font-family: 'JetBrains Mono', monospace; letter-spacing: .35em; text-transform: uppercase; color: var(--ash); margin-bottom: 28px; }
+    .gallery {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px;
+    }
+    .card {
+      background: #111; border: 1px solid rgba(232,220,200,.1); border-radius: 4px; overflow: hidden;
+      transition: transform .2s, border-color .2s; display: flex; flex-direction: column;
+    }
+    .card:hover { transform: translateY(-3px); border-color: var(--crimson); }
+    .card-header { padding: 18px 18px 12px; border-bottom: 1px solid rgba(232,220,200,.08); }
+    .card-title { font-size: 21px; font-weight: 600; margin-bottom: 4px; }
+    .card-author { font-size: 12px; color: var(--ash); font-family: 'JetBrains Mono', monospace; }
+    .card-body { padding: 16px 18px; flex: 1; font-size: 15px; color: #c7b9a3; }
+    .card-tags { padding: 0 18px 16px; display: flex; gap: 6px; flex-wrap: wrap; }
+    .tag { font-size: 9px; padding: 2px 8px; background: rgba(232,220,200,.08); color: var(--ash); font-family: 'JetBrains Mono', monospace; border-radius: 999px; }
+    .card-footer { padding: 14px 18px; border-top: 1px solid rgba(232,220,200,.08); }
+    .play-btn {
+      display: block; text-align: center; padding: 9px 0; background: var(--crimson); color: white;
+      text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em;
+    }
+    .submit {
+      background: #111; border: 1px solid rgba(232,220,200,.1); padding: 40px; border-radius: 4px; margin-top: 40px;
+    }
+    .submit h3 { margin-bottom: 16px; }
+    .submit ol { padding-left: 20px; color: #c7b9a3; line-height: 1.85; }
+    .submit li { margin-bottom: 8px; }
+    .submit .note { font-size: 13px; color: var(--ash); margin-top: 20px; font-style: italic; }
+    footer { text-align: center; padding: 60px 20px 40px; color: var(--ash); font-size: 12px; }
+    .grain { position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: .035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      mix-blend-mode: screen; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">vibesite</div>
-        <div class="tagline">a calm corner on the internet</div>
-        
-        <div class="content">
-            <h1>We're building something nice.</h1>
-            <p>This site is currently under construction. A quiet place for good vibes and simple things.</p>
-            
-            <div class="status">
-                <div class="dot"></div>
-                <span>In progress</span>
-            </div>
-        </div>
-        
-        <div class="links">
-            <a href="https://github.com/vibesite-cmd" class="link" target="_blank">GitHub</a>
-            <a href="#" class="link">Twitter / X</a>
-            <a href="#" class="link">Contact</a>
-        </div>
+  <div class="grain"></div>
+  <header class="header">
+    <div class="logo">VIBESITE</div>
+    <nav class="nav">
+      <a href="#gallery">Archive</a>
+      <a href="#submit">Submit</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <h1>a living archive of<br>vibe-coded creations</h1>
+    <p>Static experiments, games, and strange little worlds. Made with feeling. Shared freely.</p>
+    <a href="#submit" class="btn">Submit Your Project</a>
+  </div>
+
+  <div class="section" id="gallery">
+    <h2>The Archive</h2>
+    <div class="gallery" id="galleryGrid">
+      <!-- Populated by JS -->
     </div>
+  </div>
+
+  <div class="section" id="submit">
+    <h2>Submit a Project</h2>
+    <div class="submit">
+      <p style="margin-bottom:18px;color:#c7b9a3">Two easy ways to share your vibe-coded work with the community.</p>
+      
+      <h3 style="margin-bottom:8px">1. Via GitHub (recommended)</h3>
+      <ol>
+        <li>Fork <a href="https://github.com/vibesite-cmd/vibesite-cmd.github.io" target="_blank" style="color:var(--crimson)">this repository</a></li>
+        <li>Create a new folder inside <code>/projects/your-project-name/</code></li>
+        <li>Add your full self-contained project (ideally a single <code>index.html</code> + assets)</li>
+        <li>Update <code>projects.json</code> with your project metadata</li>
+        <li>Open a Pull Request with a short description</li>
+      </ol>
+
+      <h3 style="margin:22px 0 8px">2. Simple upload (no git needed)</h3>
+      <ol>
+        <li>Go to the <a href="https://github.com/vibesite-cmd/vibesite-cmd.github.io" target="_blank" style="color:var(--crimson)">repo on GitHub</a></li>
+        <li>Click <strong>Add file → Upload files</strong></li>
+        <li>Upload your project folder into <code>/projects/</code> (or open an Issue with the code pasted)</li>
+        <li>Describe what it is and why it has the right vibe</li>
+      </ol>
+
+      <div class="note">
+        Projects should be self-contained static web experiences (HTML + CSS + JS). No external servers or complex builds. We'll review and merge quickly.
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    vibesite • a home for things made with feeling • 2026
+  </footer>
+
+  <script>
+    async function loadGallery() {
+      try {
+        const res = await fetch('projects.json');
+        const data = await res.json();
+        const grid = document.getElementById('galleryGrid');
+        grid.innerHTML = '';
+
+        data.projects.forEach(proj => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <div class="card-header">
+              <div class="card-title">${proj.title}</div>
+              <div class="card-author">by ${proj.author}</div>
+            </div>
+            <div class="card-body">${proj.description}</div>
+            <div class="card-tags">
+              ${proj.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+            </div>
+            <div class="card-footer">
+              <a href="${proj.url}" class="play-btn" target="_blank">PLAY / VIEW</a>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      } catch(e) {
+        console.error('Failed to load projects.json');
+      }
+    }
+    loadGallery();
+  </script>
 </body>
 </html>
-<!-- Build triggered at Fri 26 Jun 2026 18:49:44 BST -->

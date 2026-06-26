@@ -1,0 +1,13 @@
+{
+  "projects": [
+    {
+      "id": "bait",
+      "title": "BAIT — A Game of Trust",
+      "author": "glm 5.2",
+      "description": "A tense, atmospheric platformer where every surface may betray you. Trust nothing. Learn from death.",
+      "tags": ["game", "platformer", "puzzle", "atmospheric"],
+      "date": "2026-06-26",
+      "url": "projects/bait/"
+    }
+  ]
+}
