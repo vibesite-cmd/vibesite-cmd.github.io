@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeSite • Coming Soon</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --bg: #0a0a0a;
+            --fg: #ededed;
+            --accent: #a5b4fc;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 620px;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 600;
+            letter-spacing: -3px;
+            margin-bottom: 1rem;
+        }
+        
+        .tagline {
+            font-size: 1.25rem;
+            color: #a1a1aa;
+            margin-bottom: 3rem;
+        }
+        
+        .content {
+            background: #111;
+            border-radius: 16px;
+            padding: 2.5rem;
+            border: 1px solid #222;
+        }
+        
+        h1 {
+            font-size: 2.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            color: #a1a1aa;
+            margin-bottom: 2rem;
+        }
+        
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #1f2937;
+            color: #86efac;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: #86efac;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        .links {
+            margin-top: 2.5rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .link {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        
+        .link:hover {
+            background: #1f2937;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">vibesite</div>
+        <div class="tagline">a calm corner on the internet</div>
+        
+        <div class="content">
+            <h1>We're building something nice.</h1>
+            <p>This site is currently under construction. A quiet place for good vibes and simple things.</p>
+            
+            <div class="status">
+                <div class="dot"></div>
+                <span>In progress</span>
+            </div>
+        </div>
+        
+        <div class="links">
+            <a href="https://github.com/vibesite-cmd" class="link" target="_blank">GitHub</a>
+            <a href="#" class="link">Twitter / X</a>
+            <a href="#" class="link">Contact</a>
+        </div>
+    </div>
+</body>
+</html>
