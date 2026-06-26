@@ -1,4 +1,4 @@
-perfect its loaded, okay the whoole idea about this site is that other users can submit their vbe coded proects fr others to use, lets use this for example thisis a vibe coded game by glm 5.2 and we want users to be ale to uplaod it, either via sushing throughgithu to the site or uplaoding it. heres the game:<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -680,39 +680,24 @@ loop();
 </script>
 
 <script>
-// Auto-start the game and hide title when loaded directly from gallery
+// Auto-start the game when this page is loaded directly from the gallery "PLAY" link
 window.addEventListener("DOMContentLoaded", function() {
+  // Hide the title screen immediately
   const titleScreen = document.getElementById("titleScreen");
-  if (titleScreen) titleScreen.style.display = "none";
+  if (titleScreen) {
+    titleScreen.style.display = "none";
+  }
   
+  // Start the first level right away
   if (typeof loadLevel === "function") {
     loadLevel(0);
   }
   
-  // Add floating back link
-  const back = document.createElement("div");
-  back.style.cssText = "position:fixed;top:10px;left:10px;z-index:999;font-family:JetBrains Mono,monospace;font-size:11px;opacity:0.6;background:rgba(8,5,10,0.7);padding:4px 8px;border-radius:2px;";
-  back.innerHTML = "<a href=\"https://vibesite-cmd.github.io\" style=\"color:#e8dcc8;text-decoration:none;\">← back to vibesite</a>";
-  document.body.appendChild(back);
-});
-</script>
-
-
-<script>
-// Auto-start game immediately (for gallery "PLAY" links)
-window.addEventListener("DOMContentLoaded", function() {
-  const title = document.getElementById("titleScreen");
-  if (title) title.style.display = "none";
-  
-  if (typeof loadLevel === "function") {
-    loadLevel(0);
-  }
-  
-  // Floating back link
-  const back = document.createElement("div");
-  back.style.cssText = "position:fixed;top:8px;left:8px;z-index:999;font-size:11px;font-family:JetBrains Mono,monospace;opacity:0.65;background:rgba(8,5,10,0.8);padding:3px 7px;border:1px solid rgba(232,220,200,0.2);";
-  back.innerHTML = `<a href="/" style="color:#e8dcc8;text-decoration:none;">← back to vibesite</a>`;
-  document.body.appendChild(back);
+  // Add a floating "back to vibesite" link
+  const backLink = document.createElement("div");
+  backLink.style.cssText = "position:fixed;top:10px;left:10px;z-index:999;font-family:JetBrains Mono,monospace;font-size:11px;opacity:0.7;background:rgba(8,5,10,0.8);padding:4px 8px;border:1px solid rgba(232,220,200,0.2);border-radius:2px;";
+  backLink.innerHTML = `<a href="/" style="color:#e8dcc8;text-decoration:none;">← back to vibesite</a>`;
+  document.body.appendChild(backLink);
 });
 </script>
 
